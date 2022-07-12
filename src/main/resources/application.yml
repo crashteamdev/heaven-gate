@@ -1,0 +1,47 @@
+server:
+  port: 8080
+
+management:
+  security:
+    flag: false
+  server:
+    port: 8025
+  metrics:
+    prometheus:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+spring:
+  application:
+    name: '@project.name@'
+    output:
+      ansi:
+        enabled: always
+  redis:
+    host: localhost
+    port: 25061
+    username: default
+    password: password
+    ssl: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com
+          issuer-uri: https://securetoken.google.com/${FIREBASE_APP_NAME:marketdb-gloom}
+
+grpc:
+  client:
+    walletService: static://localhost:9090
+    paymentService: static://localhost:9090
+    accountService: static://localhost:9090
